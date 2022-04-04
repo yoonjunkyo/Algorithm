@@ -1,0 +1,376 @@
+1. String 문자열
+string a = "Time is 2022Year 02Month";
+a.size()
+a.push_back('s');
+a.pop_back();
+a.substr(8) -> 8번째 index부터 
+a.substr(0,4) -> 0부터 4 전까지
+a.clear();
+
+a.find('T') -> string a에서 'T'라는 원소를 탐색 -> 찾으면 T의 index를 리턴 없으면 npos를 리턴
+while (a.find(' ') != string::npos) -> a.find(' ')의 리턴이 npos이 아닐때까지 반복
+	{
+	}
+
+set <int> s;
+s.insert(array[i]) -> 원소가 들어가며 자동으로 정렬
+
+1_1. 공통문자열
+vector<string> words = { "long","longed","longest"} 를 받아서 함수로 처리
+len -> for문으로 가장 짧은 길이를 저장 
+
+for() -> len 만큼 스캔
+  for() -> vector<string> words 를 돌며 string temp에 맨 앞 문자를 저장
+  int m = count(temp.begin(), temp.end() , temp[0]) : temp의 처음과 끝까지 temp[0]와 같은 원소의 개수 리턴
+  m=words.size() 이면 res에 temp[0](원소)를 저장
+
+1_2. 나무의 개수
+vector<int> x = { 1,2,3,4,5 }; //x좌표
+vector<int> y = { 1,2,3,4,5 }; //y좌표
+vector 로 들어온 x,y 좌표를 이용하여 스캔
+
+1_3.앉은 키_최초 방해자 탐색 (stack)
+vector<int> h = { 52,60,53,57,62,61 }; //앉은키순서
+stack<int> s; //스텍
+맨 뒤부터 탐색_ stack이 empty이므로 바로 push
+stack에 원소가 있으므로 비교_s.top()보다h[i-1]이 크면 h[i-1]은 s.top()의 방해자
+->res[s.top()]=i index를 저장 vector <int> res(n,0) -> n개의 원소를 가지며, default값은 0
+즉, 최초 방해자가 존재하지 않아 stack에 계속 존재하고 res[i]에 입력된값이 없으면 0으로 출력
+
+1_4. 바둑게임 (DFS,combination)
+n명의 사람을 반으로 나눔 ->nC(n/2)
+DFS(int L,int S){
+if(L==n/2){
+   To do
+  }
+else
+   for(int i=s; i<n; i++){
+  ch[i]=1;
+  DFS(L+1,S+1);
+  ch[i]=0;
+  }
+}
+
+2.STL map
+-char 처리
+string a = "It is time to Study Go Go ";
+map <char, int> ch; 
+for(auto x : a) ch[x]++;
+ex)
+ch['K'] -> key만 생성
+ch['K']++ -> key와 value 모두 생성
+for(auto x : ch) cout<< x.first << x.second<<endl; -> 출력
+
+-string 처리
+string a = "It is time to Study Go Go ";
+map <string, int> ch;
+string temp;
+for(auto x : a) 
+if(x != ' ') ch[temp]++; temp.clear(); -> ' '를 만나면 map에 그동안 추가한 temp를 입력하고 제거
+else temp = temp+x; ->temp에 문자를 하나씩 추가
+
+2_1.숨겨진 수의 합
+string a = "asv039dsa12sf34";
+for (char x : a) a를 스캔
+ if(x>=48 && x<=57) res=res*10+(x-48); ->48~57은 '0'~'9'의 ASKII코드
+ else sum=sum+res; res=0; -> sum에다가 res를 더하고 res 초기화
+
+2_2.반복되는 문자열 (슬라이드윈도우,unordered_map)
+string s = "eabcbacade"; ->전체 문자열
+string t = "abc"; ->확인할 문자열
+unordered_map<char, int> sH; ->전체 문자열을 담을 맵
+unordered_map<char, int> tH; ->abc를 담을 맵
+for -> tH에 abc를 추가
+sH에 전체 문자열 중 len-1개만 추가 -> 슬라이딩 윈도우를 위해
+for -> rt len부터 s.size()까지 스캔
+ {
+ sH[s[rt]]++ ->sH map에 s의 rt번째 원소를 추가
+ if(sH==tH) 이면 count
+ sH map에서 첫번째 value제거 + key제거 [lt번째]
+ lt++  
+ }
+
+2_4.숲속의 기사, 미로찾기 (BFS)
+
+int board[10][10]; -> board생성
+int dis[2][1000][1000]; -> 거리를 기록하는 dis배열 생성
+
+이중 for -> 시작지점 탐색
+  Q.push(make_pair(i, j)); ->시작지점의 좌표를 queue에 추가
+  dis[0][i][j] = 1; ->시작지점에 거리 1을 입력
+  BFS(0); 
+  break;
+BFS------
+  while (!Q.empty()) -> Q가 비어있을때까지 반복
+  int y = Q.front().first;
+  int x = Q.front().second;
+  Q.pop(); -> Q에 있는 값을 비워줌
+  for -> 4가지 방향을 돌림
+    좌표수정 
+    if (dis[idx][ny][nx] == 0 && nx>=0 && ny>=0 && nx<w && ny<h)->dis배열에 입력
+	Q.push(make_pair(ny, nx)); ->수정된 좌표를 Q에 push
+  
+2_5.최대선호음식
+N명학생 음식종류D 선택가능K개 -> 4C3
+
+DFS(int L, int S)
+if(L==K)
+ for(int i=0;i<D;i++) ch[i]&stu[i]=res[i]; ->비트연산
+ res=stu 이면 부분집합
+  
+else
+ for(int i=s; i <D; i++)
+  ch[i]=1;
+  DFS(L+1,S+1);
+  ch[i]=0;
+-> 4C3으로 분류 + 학생이 원하는 재료를 2진수를 10진수로 바꾸어 표기
+ch[4]={1, 2, 4, 8}
+
+3_1.유니크한 문자열
+
+string t = "Remember";
+for(int i=0; i<t.size; i++){ ->대문자변환
+ t[i]=toupper(t[i]);
+ a.push_back(t[i]);
+ }
+for(int i=0 ; i<a.size ; i++){ ->a에서 a[i]문자를 찾아 index로 리턴 + i와 첫번째 index일치
+ if(a.find(a[i])==i) res.push_back(a[i]);
+ }
+
+3_3. 전투게임
+구조체, 해쉬
+struct Student {
+int n; ->번호
+int p; ->점수
+char t; ->팀
+  Student(int a, char b, int c){ ->Student 오버로드(이름이 같은 메서드에 대해 
+					매개변수의 수 or 타입을 재정의)
+  n=a;
+  t=b;
+  p=c;
+  }
+  bool operator<(const Student &y)const{ ->Student에서 p를 복사하여 리턴
+  return p <y.p;
+  }
+}
+
+**-> 1.struct 생성+변수정의 2.매개변수포함 재정의(오버로딩)
+      3.operator 사용하여 리턴값 정의
+vector<Student> st; -> Studen형식의 벡터 st 생성
+vector<char> team = { 'a','b','a','c','b','a','b' };
+vector <int> num = { 17,12,10,11,24,25,12 };
+
+for(int i=0; i<team.size() ;i++){
+ st.push_back( Student(i,team[i],num[i] ) ); ->st vector에 struct Student를 삽입
+}
+
+4_1.거리두기
+vector<int> seat = { 1, 0, 0, 0, 1, 0, 0, 1, 0, 1 };
+int p=1000;
+for(int i=0; i<seat.size() ; i++){
+if(seat[i]==1){
+  p=0;
+  dis[p]=p;
+  p++;
+  }
+else{
+  dis[p]=p;
+  p++;
+  }
+}
+p=1000;
+for(int i=seat.size()-1; i>=0 ; i--){
+if(seat[i]==1){
+  p=0;
+  dis[p]=min(p,dis[p]);
+  p++;
+  }
+else{
+  dis[p]=min(p,dis[p]);
+  p++;
+  }
+}
+
+4_2.중복된 문자 제거
+string str = { "CbDBEaCEb" };
+unordered_map<char, int> sH, ch;
+string res = { "" };
+transform(str.begin(),str.end(), str.begin(),::toupper); -> 대문자 변환
+for (auto x : str) { sH[x]++; ch[x]; } ->sH에 key,value 추가 + ch에는 key만 추가
+sH[str[0]]--; ch[str[0]]++; res.push_back(str[0]); -> 빼고 집어넣음
+
+for(int i =1; i <str.size() ; i++){
+sH[str[i]]--;
+if(str[i]<str[i-1]) -> 비교해서 작으면 빼고 집어넣음-단 뒤에 문자가 남아있어야
+  if(sH[str[i-1]].second>0) {
+  res.pop_back(); ch[str[i]]++;} 
+res.push_back(str[i]); 
+else res.push_back(str[i]); ->비교해서 크면 그냥 집어넣음
+ch[str[i]]++;
+}
+
+4_3. 큰 호수 -> 호수의 크기를 구해야 하기 때문에 BFS 사용
+
+int DFS(int i, int j, int cnt) {
+for (int x = 0; x < 4; x++){
+i = i + dy[i];
+j = j + dx[i];
+if (board[i][j] == 1){
+	cnt++;
+	DFS(i,j,cnt);
+  }
+}
+return 0;
+}
+for (int i = 0; i < 6; i++)
+{
+for (int j = 0; j < 6; j++) {
+	int cnt = 0;
+	if (board[i][j] == 1){
+	board[i][j] = 0;
+	cnt++;
+	DFS(i,j,cnt);}
+  }
+}
+4_4. 모든 쌍의 괄호
+void DFS(int L,int S,int n, int ch[10])
+{
+if (L == n / 2){ -> n개의 원소를 n/2개씩 나눔
+stack<int> st;
+
+for (int i = 0; i < n; i++) {
+if (ch[i] == 1){
+	st.push(1);	
+}
+else if(ch[i] == 0&& !empty(st)){
+	st.pop();
+}
+}
+if (empty(st)) ->stack이 비어있어야 정상적인 괄호가 생성된 것
+{
+for (int i = 0; i < n; i++) cout << ch[i];
+cout << endl << "stack 처리 " << endl;
+}
+st.emplace();
+}
+else
+{
+for (int i = S; i < n; i++){
+ch[i]=1;
+DFS(L + 1, i + 1, n,ch);
+ch[i]=0;
+}}}
+
+4_5. 잔디_BFS (단, 시작 지점이 여러 곳)
+int p=1; ->초기 거리
+for{ ->시작 지점을 queue에 push
+for if(board[i][j]==2)
+Q.push(make_pair(i,j)); dis[i][j]=p;
+}
+while(!Q.empty())
+int y=Q.front.first;
+int x=Q.front.second;
+Q.pop()
+for(int i=0 ; i<4 ;i++)
+ int ny = y + dy[i]
+ int nx = x + dx[i]
+ p = dis[y][x]+1
+ if(board[ny][nx]==2) Q.push(make_pair(ny,nx))
+
+5_1. 패턴찾기
+string a = "1234557123455712345571234557";
+unordered_map<char ,int> m;
+int p = 0;
+for (int i = 0; i < a.size(); i++) {
+   p++;
+   m[a[i]]++;
+   bool flag = true;
+    for (auto x : m) {
+       if (x.second % 2 != 0) {
+            flag = false;
+       }
+       }
+     if (flag == true) {
+        for (auto x : m)cout << x.first << " " << x.second << endl;
+        break;
+     }
+}
+p = (p / 2);
+cout << a.substr(0, p);
+
+5_2.문자열 압축 해제
+string a = "2(ab)(k)3(bc)";
+string res = "";
+string tmp = "";
+int n = 1;
+for (int i = 0; i < a.size(); i++) {
+	if (48 <= a[i] && a[i] <= 57) {
+		n = a[i]-48;
+	}
+	else if (a[i] != '(') {
+		tmp.push_back(a[i]);
+		if (a[i] == ')') {
+			tmp.pop_back();
+			for (int i = 0; i < n; i++) {
+				res = res + tmp;
+			}
+			n = 1;
+			tmp.clear();
+		}
+	}
+}
+*반대로 문자열 압축은 어떻게?
+
+5_3.최대 공통 문자열 (LCS, dynamic plan)
+string a = "acbehf";
+string b = "abefc";
+
+a = ' ' + a;
+b = ' ' + b;
+
+int n = a.size();
+int m = b.size();
+vector<vector<int>> dy(n, vector<int>(m, 0)); //m->가로 스캔 default0
+//n->세로스캔 default vector<int>(m, 0) -> 즉, 전부 0으로 초기화
+for (int i = 1; i < n; i++) {
+	for (int j = 1; j < m; j++) {
+		if (a[i]==b[j])  dy[i][j] = dy[i - 1][j - 1] + 1; 
+		else  dy[i][j] = max(dy[i - 1][j], dy[i][j - 1]); 	}
+}
+
+5_5.팀만들기 DFS
+int ch[9];
+int team[3];
+DFS(int L){
+if(L==9){ To do
+ }
+else{
+ for(int i=0; i<3; i++){
+   if(team[i]<9){
+   ch[L]=i;
+   team[i]++;
+   DFS(L+1)
+   team[i]--; }
+  }
+ }
+}
+
+6_2.공통원소의 최댓값
+map<int,int> m;
+int a[10] = { 39 ,31 ,32 ,75 ,75 ,7 ,89 ,21 ,7 ,67 };
+int b[10] = { 4 ,19 ,52 ,75 ,35 ,100 ,4 ,26 ,24 ,69 };
+int c[10] = { 82, 53 ,22 ,64 ,58 ,80 ,94 ,75 ,51 ,69 };
+set<int> sa;
+set<int> sb;
+set<int> sc;
+for (int i = 0; i < 10; i++) {
+	sa.insert(a[i]);
+	sb.insert(b[i]);
+	sc.insert(c[i]);
+}
+int max = INT_MIN;
+for (auto x : sa) m[x]++;
+for (auto x : sb) m[x]++;
+for (auto x : sc) m[x]++;
+for (auto x : m) cout << x.first << " : " << x.second << endl;
+for (auto x : m) if(x.second>max)max=x.second;
