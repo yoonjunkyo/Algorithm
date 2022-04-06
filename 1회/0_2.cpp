@@ -9,7 +9,7 @@ int main()
 
 	while (a.find(' ') != string::npos)
 	{
-		pos = a.find(' '); //find() 는 index값을 반환한다.
+		pos = a.find(' '); 
 		string temp = a.substr(0, pos);
 		int len = temp.size();	
 		if (len > max) {
