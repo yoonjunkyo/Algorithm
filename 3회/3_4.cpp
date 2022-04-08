@@ -12,7 +12,8 @@ struct Student {
 		t = b;
 		p = c;
 	}
-	bool operator<(const Student& y)const {
+	bool operator<(const Student& y)
+	const{
 		return p < y.p;
 	}
 };
@@ -27,11 +28,11 @@ int main(void)
 		st.push_back(Student(i, team[i], num[i]));
 	}
 
-	for (auto x : st) cout << x.n << " " << x.t << " " << x.p << endl;;
+	for (auto x : st) cout << x.n << " " << x.t << " " << x.p << endl;
 
 	sort(st.begin(), st.end());
 	cout << "sort--" << endl;
-	for (auto x : st) cout << x.n << " " << x.t << " " << x.p << endl;;
+	for (auto x : st) cout << x.n << " " << x.t << " " << x.p << endl;
 	cout << "sum--" << endl;
 	for (int i = st.size()-1; i >=0 ; i--)
 	{

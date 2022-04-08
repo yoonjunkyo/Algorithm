@@ -137,13 +137,14 @@ for(int i=0 ; i<a.size ; i++){ ->a에서 a[i]문자를 찾아 index로 리턴 + 
  if(a.find(a[i])==i) res.push_back(a[i]);
  }
 
+
 3_3. 전투게임
 구조체, 해쉬
 struct Student {
 int n; ->번호
 int p; ->점수
 char t; ->팀
-  Student(int a, char b, int c){ ->Student 오버로드(이름이 같은 메서드에 대해 
+ Student(int a, char b, int c){ ->Student 오버로드(이름이 같은 메서드에 대해 
 					매개변수의 수 or 타입을 재정의)
   n=a;
   t=b;
