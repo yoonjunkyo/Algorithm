@@ -1,4 +1,4 @@
-﻿/*#include<iostream>
+﻿#include<iostream>
 #include<vector>
 using namespace std;
 
@@ -25,4 +25,4 @@ int main() {
 	}
 	cout << dy[n - 1][m - 1];
 	return 0;
-}*/
+}
