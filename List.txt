@@ -1,6 +1,26 @@
-자료구조: array, linked list, stack, queue, deque, tree, graph, BST, heap, 
+자료구조
+array
+linked list 
+stack 
+queue 
+deque 
+tree 
+graph 
+BST 
+heap 
 hash table 
 
-알고리즘: big-O, sorting, brute force, recursion, iteration, binary search, BFS/DFS, 
-backtracking, divide and conquer, bit manipulation, two pointers, sliding window, 
+알고리즘 
+big-O 
+sorting 
+brute force 
+recursion 
+iteration 
+binary search 
+BFS/DFS 
+backtracking 
+divide and conquer 
+bit manipulation 
+two pointers 
+sliding window 
 dynamic programming 
